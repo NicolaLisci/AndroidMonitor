@@ -34,7 +34,7 @@ public class Cards extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cards);
+        setContentView(R.layout.activity_list_card);
 
        /* cardView =  findViewById(R.id.cardView);
         wb_name = findViewById(R.id.wb_name);
@@ -51,7 +51,8 @@ public class Cards extends Activity {
 
         RecyclerView rv = findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        RVAdapter adapter = new RVAdapter(whiteboxList);
+        Log.d("prova","prova");
+        RVAdapter adapter = new RVAdapter(this, whiteboxList);
         rv.setAdapter(adapter);
 
 
@@ -68,7 +69,9 @@ public class Cards extends Activity {
 
 
 
-        /*    Log.d("id", String.valueOf(whiteboxList.get(i).getWb_id()));
+        /*
+
+          Log.d("id", String.valueOf(whiteboxList.get(i).getWb_id()));
             Log.d("nome", String.valueOf(whiteboxList.get(i).getWb_nome()));
             Log.d("descrizione", String.valueOf(whiteboxList.get(i).getWb_descrizione()));
             Log.d("ip", String.valueOf(whiteboxList.get(i).getWb_ip()));
