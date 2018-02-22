@@ -6,4 +6,11 @@
     <color name="colorTemp">#ff9500</color>
     <color name="colorUmid">#33d3fe</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorMaxT">#c91414</color>
+    <color name="colorMinT">#287be1</color>
+    <color name="colorMedT">#3bc718</color>
+    <color name="colorMaxU">#c91414</color>
+    <color name="colorMinU">#287be1</color>
+    <color name="colorMedU">#3bc718</color>
 </resources>

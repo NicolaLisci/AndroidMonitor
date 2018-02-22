@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Nome"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        android:textSize="30dp"
+        android:paddingTop="40dp"
+        android:paddingLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/Descrizione"
+        android:layout_below="@id/Nome"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="18dp"
+        android:layout_marginRight="20dp"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+         />
+
+        <LinearLayout
+            android:id="@+id/Layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:id="@+id/Layout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/temp"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_t_frag"
+                    android:gravity="center"
+                    android:hint="Temp."
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/umid"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_u_frag"
+                    android:gravity="center"
+                    android:hint="Umidità"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+    </LinearLayout>
+
+<!--   _____________________________________________   -->
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="bottom"
+
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_alignParentLeft="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_max"
+            android:tint="@color/colorMaxT"/>
+        <TextView
+            android:id="@+id/MaxT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="9"
+            android:textSize="24dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_min"
+            android:tint="@color/colorMinT"/>
+        <TextView
+            android:id="@+id/MinT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/MaxT"
+            android:maxLength="9"
+            android:textSize="24dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_media"
+            android:tint="@color/colorMedT"/>
+        <TextView
+            android:id="@+id/AvgT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="11"
+            android:textSize="24dp"
+            />
+    </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_alignParentRight="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_umid"
+            android:tint="@color/colorMedT"/>
+        <TextView
+            android:id="@+id/MaxU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="9"
+            android:textSize="24dp"
+            />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_umid"
+            android:tint="@color/colorMedT"/>
+        <TextView
+            android:id="@+id/MinU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/MaxT"
+            android:maxLength="9"
+            android:textSize="24dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_umid"
+            android:tint="@color/colorMedT"/>
+        <TextView
+            android:id="@+id/AvgU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="11"
+            android:textSize="24dp"
+            />
+    </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>
+
+
+
+
+</LinearLayout>
