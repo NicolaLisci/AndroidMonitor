@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import java.io.Serializable;
 import java.util.ArrayList;
 import Models.Bisettimanale;
 import Models.Stats;
@@ -28,73 +29,70 @@ import Models.Whitebox;
  * Created by nicolalisci on 20/02/18.
  */
 
-public class Fragment1 extends Fragment {
-    private String title;
-    private int page;
-    public  static LineChart chart;
-    public static LineData dataLD;
-   // public static TextView Nome, Descrizione,temp,umid,MaxT,MinT,AvgT,MaxU,MinU,AvgU;
-    private static ArrayList <Whitebox> whiteboxList = new ArrayList<Whitebox>();
-    Whitebox whitebox = new Whitebox();
-    private static ArrayList<Stats> statsArrayList = new ArrayList<Stats>();
-    Stats stats = new Stats();
-    private static ArrayList <Bisettimanale> bisettimanaleArrayList = new ArrayList<Bisettimanale>();
-    Bisettimanale bisettimanale = new Bisettimanale();
-    private int cvID, cont1 = 0, cont2 = 0, contBisettArray=0, i=0,ini=0;
+public class Fragment1 extends Fragment implements Serializable {
 
-    public static Fragment1 newInstance()
-    {
+    public static LineChart chart;
+    public static LineData dataLD;
+    public static ArrayList<Whitebox> whiteboxList = new ArrayList<Whitebox>();
+    public static ArrayList<Stats> statsArrayList = new ArrayList<Stats>();
+    public static ArrayList<Bisettimanale> bisettimanaleArrayList = new ArrayList<Bisettimanale>();
+    public int cvID, cont1 = 0, cont2 = 0, contBisettArray = 0, i = 0, ini = 0;
+    private Whitebox wb;
+    private Stats st;
+    private Bisettimanale bs;
+
+    public static Fragment1 newInstance() {
         Fragment1 fragment1 = new Fragment1();
         return fragment1;
     }
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        // Defines the xml file for the fragment
-        cvID=getIntent().getIntExtra("cvID",cvID);
-        Log.d("cvID", String.valueOf(cvID));
-        whitebox  = (Whitebox) getIntent().getSerializableExtra("whitebox");
-        whiteboxList = (ArrayList<Whitebox>) getIntent().getSerializableExtra("whiteboxList");
-        stats = (Stats) getIntent().getSerializableExtra("stats");
-        statsArrayList = (ArrayList<Stats>) getIntent().getSerializableExtra("statsArrayList");
-        bisettimanale = (Bisettimanale) getIntent().getSerializableExtra("bisettimanale");
-        bisettimanaleArrayList = (ArrayList<Bisettimanale>) getIntent().getSerializableExtra("bisettimanaleArrayList");
-
-        return inflater.inflate(R.layout.frag, parent, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        final Bundle bundle = getArguments();
+        wb = (Whitebox) bundle.getSerializable("wb");
+        st = (Stats) bundle.getSerializable("st");
+        cvID=bundle.getInt("cvID");
+        whiteboxList = (ArrayList<Whitebox>) bundle.getSerializable("whiteboxList");
+        statsArrayList = (ArrayList<Stats>) bundle.getSerializable("statsArrayList");
+        bisettimanaleArrayList = (ArrayList<Bisettimanale>) bundle.getSerializable("bisettimanaleArrayList");
 
 
     }
+
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.frag, parent, false);
+
+        popolaLayout(rootView);
+
+        return rootView;
 
 
-        chart = (LineChart) view.findViewById(R.id.chart);
-        TextView  Nome = (TextView) view.findViewById(R.id.Nome);
-        TextView  Descrizione = (TextView) view.findViewById(R.id.Descrizione);
-        TextView  temp = (TextView)  view.findViewById(R.id.temp);
-        TextView  umid = (TextView)  view.findViewById(R.id.umid);
-        TextView  MaxT = (TextView) view.findViewById(R.id.MaxT);
-        TextView  MinT= (TextView) view.findViewById(R.id.MinT);
-        TextView  AvgT= (TextView) view.findViewById(R.id.AvgT);
-        TextView  MaxU= (TextView) view.findViewById(R.id.MaxU);
-        TextView  MinU= (TextView) view.findViewById(R.id.MinU);
-        TextView  AvgU= (TextView) view.findViewById(R.id.AvgU);
+    }
 
+    public void popolaLayout(ViewGroup rootView) {
 
-        Log.d("wbname",whiteboxList.get(cvID).getWb_id());
+        chart = (LineChart) rootView.findViewById(R.id.chart);
+        TextView Nome = (TextView) rootView.findViewById(R.id.Nome);
+        TextView Descrizione = (TextView) rootView.findViewById(R.id.Descrizione);
+        TextView temp = (TextView) rootView.findViewById(R.id.temp);
+        TextView umid = (TextView) rootView.findViewById(R.id.umid);
+        TextView MaxT = (TextView) rootView.findViewById(R.id.MaxT);
+        TextView MinT = (TextView) rootView.findViewById(R.id.MinT);
+        TextView AvgT = (TextView) rootView.findViewById(R.id.AvgT);
+        TextView MaxU = (TextView) rootView.findViewById(R.id.MaxU);
+        TextView MinU = (TextView) rootView.findViewById(R.id.MinU);
+        TextView AvgU = (TextView) rootView.findViewById(R.id.AvgU);
 
-
-        for (int i=0; i<bisettimanaleArrayList.size();i++)
-        {
+        for (int i = 0; i < bisettimanaleArrayList.size(); i++) {
             // Log.d("wbname",bisettimanaleArrayList.get(i).getWb_name());
 
-            if(bisettimanaleArrayList.get(i).getWb_name().equals(String.valueOf(1)))
-            {
+            if (bisettimanaleArrayList.get(i).getWb_name().equals(String.valueOf(1))) {
                 cont1++;
             }
-            if(bisettimanaleArrayList.get(i).getWb_name().equals(String.valueOf(2)))
+            if (bisettimanaleArrayList.get(i).getWb_name().equals(String.valueOf(2)))
             //else
             {
                 cont2++;
@@ -102,26 +100,27 @@ public class Fragment1 extends Fragment {
 
         }
 
-        if (cvID+1==2)
-        {
-            ini=cont1;
-            cont1=ini+cont2;
+        if (cvID + 1 == 2) {
+            ini = cont1;
+            cont1 = ini + cont2;
             Log.d("cv2","cv2");
         }
 
-        Nome.setText(whiteboxList.get(cvID).getWb_nome());
-        Descrizione.setText(whiteboxList.get(cvID).getWb_descrizione());
-        temp.setText(whiteboxList.get(cvID).getWb_temp() + " °C");
-        umid.setText(whiteboxList.get(cvID).getWb_umid() + " %");
-        MaxT.setText("Max: " + String.valueOf(statsArrayList.get(cvID).gettMAX()));
-        MinT.setText("Min: " + String.valueOf(statsArrayList.get(cvID).gettMIN()));
-        AvgT.setText("Media: " + String.valueOf(statsArrayList.get(cvID).gettAVG()));
+        //cvID=cvID+1;
+        Log.d("cvID4", String.valueOf(cvID));
 
-        MaxU.setText("Max: " + String.valueOf(statsArrayList.get(cvID).getuMAX()));
-        MinU.setText("Min: " + String.valueOf(statsArrayList.get(cvID).getuMIN()));
-        AvgU.setText("Media: " + String.valueOf(statsArrayList.get(cvID).getuAVG()));
+        Nome.setText(wb.getWb_nome());
+        Descrizione.setText(wb.getWb_descrizione());
+        temp.setText(wb.getWb_temp() + " °C");
+        umid.setText(wb.getWb_umid() + " %");
 
+        MaxT.setText("Max: " + String.valueOf(st.gettMAX()));
+        MinT.setText("Min: " + String.valueOf(st.gettMIN()));
+        AvgT.setText("Media: " + String.valueOf(st.gettAVG()));
 
+        MaxU.setText("Max: " + String.valueOf(st.getuMAX()));
+        MinU.setText("Min: " + String.valueOf(st.getuMIN()));
+        AvgU.setText("Media: " + String.valueOf(st.getuAVG()));
 
         Legend l = chart.getLegend();
         l.setForm(Legend.LegendForm.LINE);
@@ -130,21 +129,16 @@ public class Fragment1 extends Fragment {
 
     }
 
-    private Intent getIntent() {
-        return null;
-    }
 
     private ArrayList setYAxisValues1() {
         ArrayList yVals1 = new ArrayList<>();
 
 
-        for (i=ini; i<cont1;i++)
-        {
-            float y= Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_temp()));
-            float x= Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_id()));
-            yVals1.add(new Entry(x,y ));
+        for (i = ini; i < cont1; i++) {
+            float y = Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_temp()));
+            float x = Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_id()));
+            yVals1.add(new Entry(x, y));
         }
-
 
 
         return yVals1;
@@ -153,8 +147,7 @@ public class Fragment1 extends Fragment {
     private ArrayList setYAxisValues2() {
         ArrayList yVals2 = new ArrayList<>();
 
-        for (i=ini; i<cont1; i++)
-        {
+        for (i = ini; i < cont1; i++) {
             float y = Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_umid()));
             float x = Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_id()));
             yVals2.add(new Entry(x, y));
@@ -202,18 +195,13 @@ public class Fragment1 extends Fragment {
         dataSets.add(set1);
 
 
-
         dataLD = new LineData(dataSets);
         chart.setDrawBorders(true);
         chart.setData(dataLD);
         chart.invalidate();
 
     }
-    @Override
-    public String toString() {
-        return "Fragment1";
-    }
-
-
 }
+
+
 

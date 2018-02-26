@@ -53,24 +53,18 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardsViewHolder>{
         @Override
         public void onClick(View v) {
 
-            cvID=getPosition();
-            //Log.d("cvID", String.valueOf(cvID));
+            cvID=getAdapterPosition();
+            Log.d("cvID1", String.valueOf(cvID));
 
             Intent intent = new Intent(getActivity(), Dettaglio.class);
 
             Bundle bundle1 = new Bundle();
             bundle1.putSerializable("statsArrayList", (Serializable) statsArrayList);
+            bundle1.putSerializable("bisettimanaleArrayList", (Serializable) bisettimanaleArrayList);
+            bundle1.putSerializable("whiteboxList", (Serializable) whiteboxList);
+            bundle1.putInt("cvID",cvID);
             intent.putExtras(bundle1);
 
-
-            Bundle bundle2 = new Bundle();
-            bundle2.putSerializable("bisettimanaleArrayList", (Serializable) bisettimanaleArrayList);
-            intent.putExtras(bundle2);
-
-            Bundle bundle3 = new Bundle();
-            bundle3.putSerializable("whiteboxList", (Serializable) whiteboxList);
-            intent.putExtras(bundle3);
-            intent.putExtra("cvID",cvID);
 
             context.startActivity(intent);
         }

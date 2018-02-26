@@ -1,5 +1,6 @@
 package com.example.nicolalisci.fetchjson;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -50,8 +51,9 @@ public class Dettaglio extends AppCompatActivity implements TabLayout.OnTabSelec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dettaglio);
+
         vp = (ViewPager) findViewById(R.id.viewpager);
-        addPages(vp);
+
 
         tab = (TabLayout) findViewById(R.id.tabs);
         tab.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -59,206 +61,49 @@ public class Dettaglio extends AppCompatActivity implements TabLayout.OnTabSelec
         tab.addOnTabSelectedListener(this);
 
         cvID=getIntent().getIntExtra("cvID",cvID);
-        Log.d("cvID", String.valueOf(cvID));
-        whitebox  = (Whitebox) getIntent().getSerializableExtra("whitebox");
-        whiteboxList = (ArrayList<Whitebox>) getIntent().getSerializableExtra("whiteboxList");
-        stats = (Stats) getIntent().getSerializableExtra("stats");
-        statsArrayList = (ArrayList<Stats>) getIntent().getSerializableExtra("statsArrayList");
-        bisettimanale = (Bisettimanale) getIntent().getSerializableExtra("bisettimanale");
-        bisettimanaleArrayList = (ArrayList<Bisettimanale>) getIntent().getSerializableExtra("bisettimanaleArrayList");
-
-
-
-    }
-
-        /*
-
-
-       if (savedInstanceState == null)
-        {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fooFragment, new Fragment()).commit();
-
-        }
-
-
-
-        whitebox  = (Whitebox) getIntent().getSerializableExtra("whitebox");
-        whiteboxList = (ArrayList<Whitebox>) getIntent().getSerializableExtra("whiteboxList");
-        stats = (Stats) getIntent().getSerializableExtra("stats");
-        statsArrayList = (ArrayList<Stats>) getIntent().getSerializableExtra("statsArrayList");
-        bisettimanale = (Bisettimanale) getIntent().getSerializableExtra("bisettimanale");
-        bisettimanaleArrayList = (ArrayList<Bisettimanale>) getIntent().getSerializableExtra("bisettimanaleArrayList");
-
-        cvID=getIntent().getIntExtra("cvID",cvID);
         //Log.d("cvID", String.valueOf(cvID));
-
-        chart = (LineChart) findViewById(R.id.chart);
-        Nome = (TextView) findViewById(R.id.Nome);
-        Descrizione = (TextView) findViewById(R.id.Descrizione);
-        temp = (TextView)  findViewById(R.id.temp);
-        umid = (TextView)  findViewById(R.id.umid);
-        MaxT = (TextView) findViewById(R.id.MaxT);
-        MinT= (TextView) findViewById(R.id.MinT);
-        AvgT= (TextView) findViewById(R.id.AvgT);
-        MaxU= (TextView) findViewById(R.id.MaxU);
-        MinU= (TextView) findViewById(R.id.MinU);
-        AvgU= (TextView) findViewById(R.id.AvgU);
-
-      for (int i=0;i<bisettimanaleArrayList.size();i++)
-        {
-
-
-            Log.d("name", String.valueOf(bisettimanaleArrayList.get(i).getWb_name()));
-            Log.d("data", String.valueOf(bisettimanaleArrayList.get(i).getWb_data()));
-            Log.d("ora", String.valueOf(bisettimanaleArrayList.get(i).getWb_ora()));
-            Log.d("temp", String.valueOf(bisettimanaleArrayList.get(i).getWb_temp()));
-            Log.d("umid", String.valueOf(bisettimanaleArrayList.get(i).getWb_umid()));
-            Log.d("id", String.valueOf(bisettimanaleArrayList.get(i).getWb_id()));
-
-        }
+        whitebox  = (Whitebox) getIntent().getSerializableExtra("whitebox");
+        whiteboxList = (ArrayList<Whitebox>) getIntent().getSerializableExtra("whiteboxList");
+        stats = (Stats) getIntent().getSerializableExtra("stats");
+        statsArrayList = (ArrayList<Stats>) getIntent().getSerializableExtra("statsArrayList");
+        bisettimanale = (Bisettimanale) getIntent().getSerializableExtra("bisettimanale");
+        bisettimanaleArrayList = (ArrayList<Bisettimanale>) getIntent().getSerializableExtra("bisettimanaleArrayList");
 
 
 
-        for (int i=0; i<bisettimanaleArrayList.size();i++)
-        {
-           // Log.d("wbname",bisettimanaleArrayList.get(i).getWb_name());
 
-            if(bisettimanaleArrayList.get(i).getWb_name().equals(String.valueOf(1)))
-            {
-                cont1++;
-            }
-            if(bisettimanaleArrayList.get(i).getWb_name().equals(String.valueOf(2)))
-            //else
-            {
-                cont2++;
-            }
+       // Intent intent = new Intent(getActivity(), );
 
-        }
-        //Log.d("wbname",whiteboxList.get(cvID).getWb_id());
-        //Log.d("cvID", String.valueOf(cvID+1));
-        //Log.d("cont1", String.valueOf(cont1));
-       // Log.d("cont2", String.valueOf(cont2));
-       // Log.d("size", String.valueOf(bisettimanaleArrayList.size()));
+        Bundle bundle1 = new Bundle();
+        bundle1.putSerializable("statsArrayList", statsArrayList);
+        bundle1.putSerializable("bisettimanaleArrayList", bisettimanaleArrayList);
+        bundle1.putSerializable("whiteboxList", whiteboxList);
+        bundle1.putInt("cvID",cvID);
 
-        if (cvID+1==2)
-        {
-            ini=cont1;
-            cont1=ini+cont2;
-            Log.d("cv2","cv2");
-        }
-
-        Nome.setText(whiteboxList.get(cvID).getWb_nome());
-        Descrizione.setText(whiteboxList.get(cvID).getWb_descrizione());
-        temp.setText(whiteboxList.get(cvID).getWb_temp() + " °C");
-        umid.setText(whiteboxList.get(cvID).getWb_umid() + " %");
-        MaxT.setText("Max: " + String.valueOf(statsArrayList.get(cvID).gettMAX()));
-        MinT.setText("Min: " + String.valueOf(statsArrayList.get(cvID).gettMIN()));
-        AvgT.setText("Media: " + String.valueOf(statsArrayList.get(cvID).gettAVG()));
-
-        MaxU.setText("Max: " + String.valueOf(statsArrayList.get(cvID).getuMAX()));
-        MinU.setText("Min: " + String.valueOf(statsArrayList.get(cvID).getuMIN()));
-        AvgU.setText("Media: " + String.valueOf(statsArrayList.get(cvID).getuAVG()));
-
-
-
-        Legend l = chart.getLegend();
-        l.setForm(Legend.LegendForm.LINE);
-        setData();
+        PageAdapter pm = new PageAdapter(getSupportFragmentManager(),whiteboxList,statsArrayList,bisettimanaleArrayList,cvID);
+        vp.setAdapter(pm);
 
 
     }
 
-
-    //_______________________________________________________________________________________________
-
-
-    private ArrayList setYAxisValues1() {
-        ArrayList yVals1 = new ArrayList<>();
-
-
-        for (i=ini; i<cont1;i++)
-        {
-            float y= Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_temp()));
-            float x= Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_id()));
-            yVals1.add(new Entry(x,y ));
-        }
-
-
-
-        return yVals1;
-    }
-
-    private ArrayList setYAxisValues2() {
-        ArrayList yVals2 = new ArrayList<>();
-
-        for (i=ini; i<cont1; i++)
-        {
-            float y = Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_umid()));
-            float x = Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_id()));
-            yVals2.add(new Entry(x, y));
-        }
-        return yVals2;
-    }
-
-
-    public void setData() {
-
-        ArrayList<Entry> yVals1 = setYAxisValues1();
-        ArrayList<Entry> yVals2 = setYAxisValues2();
-        LineDataSet set1;
-        LineDataSet set2;
-
-
-        set1 = new LineDataSet(yVals1, "Temperatura");
-        set1.setFillColor(getResources().getColor(R.color.colorTemp));
-        set1.setFillAlpha(255);
-        set1.setCircleColor(Color.BLACK);
-        set1.setLineWidth(1f);
-        set1.setCircleRadius(2f);
-        set1.setDrawCircleHole(false);
-        set1.setValueTextSize(9f);
-        set1.setDrawFilled(true);
-        set1.setColors(getResources().getColor(R.color.colorTemp));
-        set1.setDrawValues(false);
-        set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-
-        set2 = new LineDataSet(yVals2, "Umidità");
-        set2.setFillColor(getResources().getColor(R.color.colorUmid));
-        set2.setFillAlpha(200);
-        set2.setCircleColor(Color.BLACK);
-        set2.setLineWidth(1f);
-        set2.setCircleRadius(2f);
-        set2.setDrawCircleHole(false);
-        set2.setValueTextSize(9f);
-        set2.setDrawFilled(true);
-        set2.setColors(getResources().getColor(R.color.colorUmid));
-        set2.setDrawValues(false);
-        set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set2);
-        dataSets.add(set1);
-
-
-
-        dataLD = new LineData(dataSets);
-        chart.setDrawBorders(true);
-        chart.setData(dataLD);
-        chart.invalidate();
-
-    }
-
-    */
-    private void addPages(ViewPager viewPager)
-    {
-        PageAdapter myPageAdapter=new PageAdapter(getSupportFragmentManager());
-        myPageAdapter.addPage(Fragment1.newInstance());
-        myPageAdapter.addPage(Fragment2.newInstance());
-        vp.setAdapter(myPageAdapter);
-    }
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        switch(tab.getPosition()) {
+            case 0:
+                vp.setCurrentItem(0);
+                tab.setText(whiteboxList.get(0).getWb_nome());
+                break;
+            case 1:
+                vp.setCurrentItem(1);
+                tab.setText(whiteboxList.get(1).getWb_nome());
+                break;
+
+            default:
+
+                vp.setCurrentItem(tab.getPosition());
+                tab.setText("WhiteBox");
+                break;
+        }
 
     }
 
@@ -275,30 +120,5 @@ public class Dettaglio extends AppCompatActivity implements TabLayout.OnTabSelec
         return context;
     }
 
-    public sendData()
-    {
-        Intent intent = new Intent(getActivity(), Dettaglio.class);
 
-        Bundle bundle1 = new Bundle();
-        bundle1.putSerializable("statsArrayList", (Serializable) statsArrayList);
-        intent.putExtras(bundle1);
-
-        Bundle bundle2 = new Bundle();
-        bundle2.putSerializable("bisettimanaleArrayList", (Serializable) bisettimanaleArrayList);
-        intent.putExtras(bundle2);
-
-        Bundle bundle3 = new Bundle();
-        bundle3.putSerializable("whiteboxList", (Serializable) whiteboxList);
-        intent.putExtras(bundle3);
-        intent.putExtra("cvID",cvID);
-
-        Fragment1 fragment1 = new Fragment1();
-        fragment1.setArguments(bundle1);
-        fragment1.setArguments(bundle2);
-        fragment1.setArguments(bundle3);
-        Fragment2 fragment2 = new Fragment2();
-        fragment2.setArguments(bundle1);
-        fragment2.setArguments(bundle2);
-        fragment2.setArguments(bundle3);
-    }
 }

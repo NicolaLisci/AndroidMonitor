@@ -8,18 +8,19 @@
     <TextView
         android:id="@+id/Nome"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
         android:textSize="30dp"
-        android:paddingTop="40dp"
+        android:text="prva"
+        android:paddingTop="20dp"
         android:paddingLeft="20dp"/>
 
     <TextView
         android:id="@+id/Descrizione"
         android:layout_below="@id/Nome"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="100dp"
         android:textColor="@color/colorBlack"
         android:textSize="18dp"
         android:layout_marginRight="20dp"
