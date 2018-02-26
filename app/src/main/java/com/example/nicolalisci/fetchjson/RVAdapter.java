@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import Models.Whitebox;
 
-import static com.example.nicolalisci.fetchjson.SplashActivity.bisettimanaleArrayList;
+import static com.example.nicolalisci.fetchjson.SplashActivity.rilevazioni;
 import static com.example.nicolalisci.fetchjson.SplashActivity.statsArrayList;
 
 /**
@@ -26,12 +26,21 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardsViewHolder>{
     private Context context;
     private ArrayList<Whitebox> whiteboxList;
     private int cvID;
+    private DetailsAdapterListener listener;
+
+    public interface DetailsAdapterListener {
+        public void OnCardClicked  (int position);
 
 
-    public class CardsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+    }
+
+
+    public class CardsViewHolder extends RecyclerView.ViewHolder{
 
         TextView wb_name,wb_temp,wb_umid,wb_ora;
         CardView cardView;
+
 
 
 
@@ -45,29 +54,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardsViewHolder>{
             wb_ora = (TextView) itemView.findViewById(R.id.wb_ora);
 
 
-          cardView.setOnClickListener(this);
+          //cardView.setOnClickListener(listener);
 
 
         }
 
-        @Override
-        public void onClick(View v) {
 
-            cvID=getAdapterPosition();
-            Log.d("cvID1", String.valueOf(cvID));
-
-            Intent intent = new Intent(getActivity(), Dettaglio.class);
-
-            Bundle bundle1 = new Bundle();
-            bundle1.putSerializable("statsArrayList", (Serializable) statsArrayList);
-            bundle1.putSerializable("bisettimanaleArrayList", (Serializable) bisettimanaleArrayList);
-            bundle1.putSerializable("whiteboxList", (Serializable) whiteboxList);
-            bundle1.putInt("cvID",cvID);
-            intent.putExtras(bundle1);
-
-
-            context.startActivity(intent);
-        }
     }
 
     private Context getActivity() {
@@ -75,10 +67,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardsViewHolder>{
     }
 
 
-    public RVAdapter(Context context, ArrayList<Whitebox> whiteboxList)
+    public RVAdapter(Context context, ArrayList<Whitebox> whiteboxList, DetailsAdapterListener listener )
     {
         this.context = context;
         this.whiteboxList = whiteboxList;
+        this.listener = listener;
 
     }
 
@@ -94,15 +87,23 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardsViewHolder>{
 
 
     @Override
-    public void onBindViewHolder(CardsViewHolder holder, int i) {
+    public void onBindViewHolder(CardsViewHolder holder, final int position) {
 
-        Whitebox whitebox = this.whiteboxList.get(i);
+
+
+        final Whitebox whitebox = this.whiteboxList.get(position);
 
         holder.wb_name.setText(whitebox.getWb_nome());
         holder.wb_temp.setText(whitebox.getWb_temp() + " °C");
         holder.wb_umid.setText(whitebox.getWb_umid() + " %");
         holder.wb_ora.setText("Ultima lettura: " + whitebox.getWb_ora());
-        //holder.cardView.setOnClickListener((View.OnClickListener) this);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                listener.OnCardClicked(position);
+            }
+        });
 
 
 

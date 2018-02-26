@@ -35,8 +35,8 @@ public class Fragment1 extends Fragment implements Serializable {
     public static LineData dataLD;
     public static ArrayList<Whitebox> whiteboxList = new ArrayList<Whitebox>();
     public static ArrayList<Stats> statsArrayList = new ArrayList<Stats>();
-    public static ArrayList<Bisettimanale> bisettimanaleArrayList = new ArrayList<Bisettimanale>();
-    public int cvID, cont1 = 0, cont2 = 0, contBisettArray = 0, i = 0, ini = 0;
+    protected static ArrayList<ArrayList<Bisettimanale>> rilevazioni = new ArrayList<ArrayList<Bisettimanale>>();
+    public int position, cont1 = 0, cont2 = 0, contBisettArray = 0, i = 0, ini = 0;
     private Whitebox wb;
     private Stats st;
     private Bisettimanale bs;
@@ -50,13 +50,14 @@ public class Fragment1 extends Fragment implements Serializable {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Bundle bundle = getArguments();
-        wb = (Whitebox) bundle.getSerializable("wb");
+        //wb = (Whitebox) bundle.getSerializable("wb");
         st = (Stats) bundle.getSerializable("st");
-        cvID=bundle.getInt("cvID");
-        whiteboxList = (ArrayList<Whitebox>) bundle.getSerializable("whiteboxList");
+        position=bundle.getInt("currentPosition");
+        wb = (Whitebox) bundle.getSerializable("whitebox");
         statsArrayList = (ArrayList<Stats>) bundle.getSerializable("statsArrayList");
-        bisettimanaleArrayList = (ArrayList<Bisettimanale>) bundle.getSerializable("bisettimanaleArrayList");
+        rilevazioni = (ArrayList<ArrayList<Bisettimanale>>) bundle.getSerializable("rilevazioni");
 
+        Log.d("rilevazioni", String.valueOf(rilevazioni));
 
     }
 
@@ -86,41 +87,20 @@ public class Fragment1 extends Fragment implements Serializable {
         TextView MinU = (TextView) rootView.findViewById(R.id.MinU);
         TextView AvgU = (TextView) rootView.findViewById(R.id.AvgU);
 
-        for (int i = 0; i < bisettimanaleArrayList.size(); i++) {
-            // Log.d("wbname",bisettimanaleArrayList.get(i).getWb_name());
 
-            if (bisettimanaleArrayList.get(i).getWb_name().equals(String.valueOf(1))) {
-                cont1++;
-            }
-            if (bisettimanaleArrayList.get(i).getWb_name().equals(String.valueOf(2)))
-            //else
-            {
-                cont2++;
-            }
-
-        }
-
-        if (cvID + 1 == 2) {
-            ini = cont1;
-            cont1 = ini + cont2;
-            Log.d("cv2","cv2");
-        }
-
-        //cvID=cvID+1;
-        Log.d("cvID4", String.valueOf(cvID));
 
         Nome.setText(wb.getWb_nome());
         Descrizione.setText(wb.getWb_descrizione());
         temp.setText(wb.getWb_temp() + " °C");
         umid.setText(wb.getWb_umid() + " %");
 
-        MaxT.setText("Max: " + String.valueOf(st.gettMAX()));
-        MinT.setText("Min: " + String.valueOf(st.gettMIN()));
-        AvgT.setText("Media: " + String.valueOf(st.gettAVG()));
+        MaxT.setText("Max: " + String.valueOf(st.gettMAX() + " °C"));
+        MinT.setText("Min: " + String.valueOf(st.gettMIN() + " °C"));
+        AvgT.setText("Media: " + String.valueOf(st.gettAVG()).substring(0,4) + " °C");
 
-        MaxU.setText("Max: " + String.valueOf(st.getuMAX()));
-        MinU.setText("Min: " + String.valueOf(st.getuMIN()));
-        AvgU.setText("Media: " + String.valueOf(st.getuAVG()));
+        MaxU.setText("Max: " + String.valueOf(st.getuMAX() + " %"));
+        MinU.setText("Min: " + String.valueOf(st.getuMIN() + " %"));
+        AvgU.setText("Media: " + String.valueOf(st.getuAVG()).substring(0,4) + " %");
 
         Legend l = chart.getLegend();
         l.setForm(Legend.LegendForm.LINE);
@@ -134,9 +114,9 @@ public class Fragment1 extends Fragment implements Serializable {
         ArrayList yVals1 = new ArrayList<>();
 
 
-        for (i = ini; i < cont1; i++) {
-            float y = Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_temp()));
-            float x = Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_id()));
+        for (i = ini; i < rilevazioni.get(position).size(); i++) {
+            float y = Float.parseFloat(String.valueOf(rilevazioni.get(position).get(i).getWb_temp()));
+            float x = Float.parseFloat(String.valueOf(rilevazioni.get(position).get(i).getWb_id()));
             yVals1.add(new Entry(x, y));
         }
 
@@ -147,9 +127,9 @@ public class Fragment1 extends Fragment implements Serializable {
     private ArrayList setYAxisValues2() {
         ArrayList yVals2 = new ArrayList<>();
 
-        for (i = ini; i < cont1; i++) {
-            float y = Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_umid()));
-            float x = Float.parseFloat(String.valueOf(bisettimanaleArrayList.get(i).getWb_id()));
+        for (i = ini; i < rilevazioni.get(position).size(); i++) {
+            float y = Float.parseFloat(String.valueOf(rilevazioni.get(position).get(i).getWb_umid()));
+            float x = Float.parseFloat(String.valueOf(rilevazioni.get(position).get(i).getWb_id()));
             yVals2.add(new Entry(x, y));
         }
         return yVals2;

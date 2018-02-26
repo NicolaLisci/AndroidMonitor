@@ -38,7 +38,10 @@ public class SplashActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 8000;
     private static ArrayList <Whitebox> whiteboxList = new ArrayList<Whitebox>();
     protected static ArrayList <Stats> statsArrayList = new ArrayList<Stats>();
-    protected static ArrayList <Bisettimanale> bisettimanaleArrayList = new ArrayList<Bisettimanale>();
+    protected static ArrayList <Bisettimanale> bisettimanaleArrayList1 = new ArrayList<Bisettimanale>();
+    protected static ArrayList <Bisettimanale> bisettimanaleArrayList2 = new ArrayList<Bisettimanale>();
+    protected static ArrayList<ArrayList<Bisettimanale>> rilevazioni = new ArrayList<ArrayList<Bisettimanale>>();
+
     Whitebox whitebox = new Whitebox();
     Stats stats = new Stats();
     Bisettimanale bisettimanale = new Bisettimanale();
@@ -156,7 +159,7 @@ public class SplashActivity extends AppCompatActivity {
                                 bisettimanale.setWb_temp(object1.getString("temperatura"));
                                 bisettimanale.setWb_umid(object1.getString("umidita"));
                                 bisettimanale.setWb_id(object1.getString("id"));
-                                bisettimanaleArrayList.add(bisettimanale);
+                                bisettimanaleArrayList1.add(bisettimanale);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -175,12 +178,16 @@ public class SplashActivity extends AppCompatActivity {
                                 bisettimanale.setWb_temp(object2.getString("temperatura"));
                                 bisettimanale.setWb_umid(object2.getString("umidita"));
                                 bisettimanale.setWb_id(object2.getString("id"));
-                                bisettimanaleArrayList.add(bisettimanale);
+                                bisettimanaleArrayList2.add(bisettimanale);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
                         }
+
+                        rilevazioni.add(0,bisettimanaleArrayList1);
+                        rilevazioni.add(1,bisettimanaleArrayList2);
+
                     }
 
 
@@ -294,7 +301,7 @@ public class SplashActivity extends AppCompatActivity {
                 i.putExtras(bundle1);
 
                 Bundle bundle2 = new Bundle();
-                bundle2.putSerializable("bisettimanaleArrayList", (Serializable) bisettimanaleArrayList);
+                bundle2.putSerializable("rilevazioni", (Serializable) rilevazioni);
                 i.putExtras(bundle2);
 
 

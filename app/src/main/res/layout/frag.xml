@@ -101,16 +101,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/ic_max"
             android:tint="@color/colorMaxT"/>
         <TextView
             android:id="@+id/MaxT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLength="9"
-            android:textSize="24dp"
+            android:maxLength="12"
+            android:textSize="22dp"
             />
     </LinearLayout>
     <LinearLayout
@@ -118,8 +118,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/ic_min"
             android:tint="@color/colorMinT"/>
         <TextView
@@ -127,8 +127,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/MaxT"
-            android:maxLength="9"
-            android:textSize="24dp"
+            android:maxLength="12"
+            android:textSize="22dp"
             />
     </LinearLayout>
     <LinearLayout
@@ -136,16 +136,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/ic_media"
             android:tint="@color/colorMedT"/>
         <TextView
             android:id="@+id/AvgT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLength="11"
-            android:textSize="24dp"
+            android:maxLength="14"
+            android:textSize="22dp"
             />
     </LinearLayout>
 
@@ -166,16 +166,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/ic_umid"
             android:tint="@color/colorMedT"/>
         <TextView
             android:id="@+id/MaxU"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLength="9"
-            android:textSize="24dp"
+            android:maxLength="11"
+            android:textSize="22dp"
             />
         </LinearLayout>
 
@@ -185,8 +185,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/ic_umid"
             android:tint="@color/colorMedT"/>
         <TextView
@@ -194,8 +194,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/MaxT"
-            android:maxLength="9"
-            android:textSize="24dp"
+            android:maxLength="11"
+            android:textSize="22dp"
             />
     </LinearLayout>
 
@@ -204,16 +204,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/ic_umid"
             android:tint="@color/colorMedT"/>
         <TextView
             android:id="@+id/AvgU"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLength="11"
-            android:textSize="24dp"
+            android:maxLength="13"
+            android:textSize="22dp"
             />
     </LinearLayout>
 
